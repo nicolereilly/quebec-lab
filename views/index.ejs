@@ -1,37 +1,40 @@
-<h1>Hi there, we are in EJS</h1>
+<h1>Lets create a list of places to eat in Florence, Alabama</h1>
 
 <h2> <%=someVar %></h2>
 
 <h2> <%=herokuVar %></h2>
 
-<h3> Current Drinkz on hand</h3> 
- <% for (var i=0; i< drinkData.length; i++ ) { %>
-  <form method="POST" action="/deleteDrink/<%= drinkData[i]._id %>" style="display: inline-block">  
-    <%= drinkData[i].drink_name %> (<%= drinkData[i].size %>) 
+<h3>Restaurants</h3> 
+ <% for (var i=0; i< places.length; i++ ) { %>
+  <form method="POST" action="/deletePlace/<%= places[i]._id %>" style="display: inline-block">  
+    <%= places[i].place_name %> (<%= places[i].size %>) 
     <input type="submit" value="delete"> 
   </form>
   <br/>
 <% } %> 
 
 
-<h3> Current Drinkz on hand</h3> 
- <% for (var i=0; i< drinkData.length; i++ ) { %>
-  <form method="POST" action="/updateDrink/<%= drinkData[i]._id %>" style="display: inline-block">  
-    <%= drinkData[i].drink_name %> (<%= drinkData[i].size %>) 
+<h3>Already added places to eat</h3> 
+ <% for (var i=0; i< places.length; i++ ) { %>
+  <form method="POST" action="/updatePlace/<%= places[i]._id %>" style="display: inline-block">  
+    <%= places[i].place_name %> (<%= places[i].size %>) 
     <input type="submit" value="update"> 
   </form>
   <br/>
 <% } %>
 
 
-<h3> add a new drink </h3>
+<h3>Add a new restaurant</h3>
 
-<form method="POST" action="/addDrink">
-    <label for="drink_name">Drink</label>
-        <input name="drink_name" value="new drink">
+<form method="POST" action="/addPlace">
+    <label for="place_name">Restaurant</label>
+        <input name="place_name" value="Big Bad Breakfast">
     <br>
-    <label for="size">size</label>
-      <input name="size" value="gallon"> 
+    <label for="type">Food Type</label>
+      <input name="type" value="Breakfast"> 
     <br>
-    <input type="submit" value="add a drink" />
+    <input type="submit" value="Add the new restaurant" />
 </form>
+
+<a href="https://github.com/nicolereilly/quebec-lab">GitHub Repo</a><br>
+<a href="">Render Link</a><br>

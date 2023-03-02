@@ -5,9 +5,10 @@ const bodyParser = require('body-parser')
 const { urlencoded } = require('body-parser')
 const { ObjectId } = require('mongodb')
 const PORT = process.env.PORT || 3000;
-const herokuVar = process.env.HEROKU_NAME || "local Barry"
+const herokuVar = process.env.HEROKU_NAME || "local Nicole"
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const MONGO_URI = "mongodb+srv://nreilly:vY4A1eYR0sVUpISS@cluster0.6kyiorf.mongodb.net/?retryWrites=true&w=majority"
+const client = new MongoClient(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
     
@@ -17,7 +18,7 @@ async function cxnDB(){
 
   try{
     client.connect; 
-    const collection = client.db("chillAppz").collection("drinkz");
+    const collection = client.db("chillyumz").collection("placez");
     const result = await collection.find().toArray();
       
     // console.log("cxnDB result: ", result);
@@ -37,22 +38,25 @@ async function cxnDB(){
 app.get('/', async (req, res) => {
 
   let result = await cxnDB().catch(console.error); 
+  res.render('index', {  drinkData : result })
 
-  // console.log("get/: ", result);
-
-  res.render('index', {
-    someVar : "hello from node, express, & EJS, nodemon here too!",
-    herokuVar : process.env.HEROKU_NAME,  
-    drinkData : result
+  app.get('/mongo', async (req, res) => {
+  
+    let result = await cxnDB().catch(console.error); 
+  
+    console.log('in get to slash mongo', result[1].drink_name); 
+  
+    res.send(`here ya go, joe. ${ result[1].drink_name }` ); 
+  
   })
 })
 
-app.post('/addDrink', async (req, res) => {
+app.post('/addPlace', async (req, res) => {
 
   try {
     // console.log("req.body: ", req.body) 
     client.connect; 
-    const collection = client.db("chillAppz").collection("drinkz");
+    const collection = client.db("chillyumz").collection("placez");
     await collection.insertOne(req.body);
       
     res.redirect('/');
@@ -67,15 +71,15 @@ app.post('/addDrink', async (req, res) => {
 })
 
 
-app.post('/updateDrink/:id', async (req, res) => {
+app.post('/updatePlace/:id', async (req, res) => {
 
   try {
     console.log("req.parms.id: ", req.params.id) 
     
     client.connect; 
-    const collection = client.db("chillAppz").collection("drinkz");
+    const collection = client.db("chillyumz").collection("placez");
     let result = await collection.findOneAndUpdate( 
-      {"_id": ObjectId(req.params.id)}, { $set: {"size": "REALLY BIG DRINK" } }
+      {"_id": ObjectId(req.params.id)}, { $set: {"size": "REALLY YUMMY PLACE" } }
     )
     .then(result => {
       console.log(result); 
@@ -89,13 +93,13 @@ app.post('/updateDrink/:id', async (req, res) => {
 
 })
 
-app.post('/deleteDrink/:id', async (req, res) => {
+app.post('/deletePlace/:id', async (req, res) => {
 
   try {
     console.log("req.parms.id: ", req.params.id) 
     
     client.connect; 
-    const collection = client.db("chillAppz").collection("drinkz");
+    const collection = client.db("chillyumz").collection("placez");
     let result = await collection.findOneAndDelete( 
       {
         "_id": ObjectId(req.params.id)
