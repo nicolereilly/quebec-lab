@@ -1,40 +1,28 @@
-<h1>Lets create a list of places to eat in Florence, Alabama</h1>
-
-<h2> <%=someVar %></h2>
-
-<h2> <%=herokuVar %></h2>
-
-<h3>Restaurants</h3> 
- <% for (var i=0; i< places.length; i++ ) { %>
-  <form method="POST" action="/deletePlace/<%= places[i]._id %>" style="display: inline-block">  
-    <%= places[i].place_name %> (<%= places[i].size %>) 
-    <input type="submit" value="delete"> 
-  </form>
-  <br/>
+<h3> Current Colleges on hand</h3> 
+<% for (var i=0; i< universityData.length; i++ ) { %>
+ <form method="POST" action="/deleteName/<%= universityData[i]._id %>" style="display: inline-block">  
+   <%= universityData[i].name %> (<%= universityData[i].size %>) 
+   <input type="submit" value="delete"> 
+ </form>
+ <br/>
 <% } %> 
 
+<h3>Add a new College</h3>
 
-<h3>Already added places to eat</h3> 
- <% for (var i=0; i< places.length; i++ ) { %>
-  <form method="POST" action="/updatePlace/<%= places[i]._id %>" style="display: inline-block">  
-    <%= places[i].place_name %> (<%= places[i].size %>) 
-    <input type="submit" value="update"> 
-  </form>
-  <br/>
-<% } %>
-
-
-<h3>Add a new restaurant</h3>
-
-<form method="POST" action="/addPlace">
-    <label for="place_name">Restaurant</label>
-        <input name="place_name" value="Big Bad Breakfast">
-    <br>
-    <label for="type">Food Type</label>
-      <input name="type" value="Breakfast"> 
-    <br>
-    <input type="submit" value="Add the new restaurant" />
+<form method="POST" action="/addName">
+   <label for="name">University: </label>
+       <input name="name" value="New University">
+   <br>
+   <br>
+   <input type="submit" value="Add This University" />
 </form>
 
-<a href="https://github.com/nicolereilly/quebec-lab">GitHub Repo</a><br>
-<a href="">Render Link</a><br>
+
+<h3> Let's update one of our Colleges</h3> 
+<% for (var i=0; i< universityData.length; i++ ) { %>
+<form method="POST" action="/updateUniversity/<%= universityData[i]._id %>" style="display: inline-block">  
+  <%= universityData[i].name %> (<%= universityData[i].size %>) 
+  <input type="submit" value="update"> 
+</form>
+<br/>
+<% } %> 
