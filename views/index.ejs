@@ -1,7 +1,7 @@
 <h3> Current Colleges on hand</h3> 
 <% for (var i=0; i< universityData.length; i++ ) { %>
  <form method="POST" action="/deleteName/<%= universityData[i]._id %>" style="display: inline-block">  
-   <%= universityData[i].name %> (<%= universityData[i].size %>) 
+   <%= universityData[i].name %>
    <input type="submit" value="delete"> 
  </form>
  <br/>
@@ -21,7 +21,7 @@
 <h3> Let's update one of our Colleges</h3> 
 <% for (var i=0; i< universityData.length; i++ ) { %>
 <form method="POST" action="/updateUniversity/<%= universityData[i]._id %>" style="display: inline-block">  
-  <%= universityData[i].name %> (<%= universityData[i].size %>) 
+  <%= universityData[i].name %>
   <input type="submit" value="update"> 
 </form>
 <br/>
