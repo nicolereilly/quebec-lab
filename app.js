@@ -114,11 +114,12 @@ app.post('/updateUniversity/:id', async (req, res) => {
     
     client.connect; 
     const collection = client.db("papa-lab").collection("dev-profiles");
-    let result = await collection.findOneAndUpdate( 
-      { "_id": new ObjectId(req.params.id) }, {$set: {name: "New University" }} )
+    let universityData = await collection.findOneAndUpdate( 
+      { "_id": ObjectId(req.params.id) }, {$set: {name: "New University" }} )
+      //{ "_id": new ObjectId(req.params.id) }, {$set: {name: "New University" }} )
 
-    .then(result => {
-      console.log(result); 
+    .then(universityData => {
+      console.log(universityData); 
       res.redirect('/');
     })
     .catch(error => console.error(error))
